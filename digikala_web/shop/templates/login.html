@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+   <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">ورود به پنل کاربری شما</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">تشگر بابت اعتماد به ما</p>
+                </div>
+            </div>
+        </header>
+<form method="POST" action="{% url 'login' %}">
+{% csrf_token %}
+  <div class="mb-3">
+    <input type="text" class="form-control" name="username" placeholder="ایمیل خود را وارد کنید" >
+
+  </div>
+  <div class="mb-3">
+
+    <input type="password" class="form-control" name="password" placeholder="رمز عبور خود را وارد کنید">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
