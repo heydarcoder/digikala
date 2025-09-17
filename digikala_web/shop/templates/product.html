@@ -1,53 +1,195 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% block content %}
+<style>
+    body {
+        background: #f5f5f5;
+        font-family: IRANSans, Vazirmatn, Tahoma, sans-serif;
+    }
+    .product-hero {
+        background: linear-gradient(90deg, #ef394e 0%, #d32f2f 100%);
+        color: #fff;
+        border-radius: 0 0 32px 32px;
+        box-shadow: 0 4px 24px 0 rgba(239,57,78,0.08);
+        padding: 40px 0 32px 0;
+        margin-bottom: 32px;
+        text-align: center;
+    }
+    .product-hero h1 {
+        font-weight: 900;
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+        letter-spacing: -1px;
+    }
+    .product-hero p {
+        font-size: 1.1rem;
+        opacity: 0.92;
+    }
+    .dk-product-detail-card {
+        background: #fff;
+        border-radius: 22px;
+        box-shadow: 0 4px 32px 0 rgba(239,57,78,0.10);
+        overflow: hidden;
+        margin-bottom: 40px;
+        padding: 0;
+        border: none;
+    }
+    .dk-product-img-detail {
+        width: 100%;
+        height: 350px;
+        object-fit: contain;
+        background: #f8f8f8;
+        padding: 32px;
+        border-radius: 0 22px 22px 0;
+        border-left: 1px solid #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .dk-product-info {
+        padding: 36px 32px 32px 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
+    .dk-product-title-detail {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #23254e;
+        margin-bottom: 18px;
+        text-align: right;
+    }
+    .dk-product-desc {
+        color: #444;
+        font-size: 1.08rem;
+        margin-bottom: 22px;
+        text-align: right;
+        line-height: 1.7;
+    }
+    .dk-price-detail {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #23254e;
+        margin-bottom: 18px;
+        text-align: right;
+    }
+    .dk-price-old-detail {
+        color: #b0b0b0;
+        font-size: 1.05rem;
+        text-decoration: line-through;
+        margin-left: 12px;
+    }
+    .dk-badge-sale-detail {
+        display: inline-block;
+        background: linear-gradient(90deg, #ef394e 0%, #d32f2f 100%);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        border-radius: 0 0 12px 0;
+        padding: 6px 18px;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 8px 0 rgba(239,57,78,0.13);
+    }
+    .dk-btn-detail {
+        background: linear-gradient(90deg, #ef394e 0%, #d32f2f 100%);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 12px 36px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: background 0.2s;
+        box-shadow: 0 2px 8px 0 rgba(239,57,78,0.08);
+        margin-top: 18px;
+        margin-bottom: 10px;
+        width: 100%;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+    }
+    .dk-btn-detail:hover {
+        background: linear-gradient(90deg, #d32f2f 0%, #ef394e 100%);
+        color: #fff;
+    }
+    .dk-back-link {
+        display: inline-block;
+        margin-top: 18px;
+        color: #ef394e;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 1.05rem;
+        transition: color 0.2s;
+    }
+    .dk-back-link:hover {
+        color: #d32f2f;
+        text-decoration: underline;
+    }
+    @media (max-width: 991px) {
+        .dk-product-img-detail {
+            height: 220px;
+            padding: 16px;
+        }
+        .dk-product-info {
+            padding: 24px 12px 18px 12px;
+        }
+    }
+    @media (max-width: 767px) {
+        .dk-product-detail-card .row {
+            flex-direction: column;
+        }
+        .dk-product-img-detail {
+            border-radius: 22px 22px 0 0;
+            border-left: none;
+            border-bottom: 1px solid #f0f0f0;
+            height: 180px;
+        }
+        .dk-product-info {
+            padding: 18px 8px 12px 8px;
+        }
+    }
+</style>
 
-	<br>
-	<br>
-	<br>
-	<br>
-	<br><br>
-	<br>
-	<br>
-	<br>
-<div class="card mb-3">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{{ product.picture.url }}" class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">{{ product.description }}</p>
-		  {% if product.is_sale %}
-		  <strike>{{ product.price |intcomma }} </strike>
-			  <br>
-			  {{ product.sale_price |intcomma }} قیمت محصول :
-		  {% else %}
-			  {{ product.price |intcomma }}
-		  {% endif %}
-
-	  <a href="{% url 'hello_world' %}"> یازگشت به صفحه اصلی</a>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
+<div class="product-hero">
+    <h1>جزئیات محصول</h1>
+    <p>اطلاعات کامل محصول را در این صفحه مشاهده کنید و خریدی مطمئن داشته باشید.</p>
 </div>
 
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br><br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br><br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+<div class="container">
+    <div class="card dk-product-detail-card">
+        <div class="row g-0 align-items-stretch">
+            <div class="col-md-5 col-12 d-flex align-items-center justify-content-center">
+                <img src="{{ product.picture.url }}" class="dk-product-img-detail" alt="{{ product.name }}">
+            </div>
+            <div class="col-md-7 col-12">
+                <div class="dk-product-info">
+                    <div class="dk-product-title-detail">{{ product.name }}</div>
+                    <div class="dk-product-desc">{{ product.description }}</div>
+                    {% if product.is_sale %}
+                        <div class="dk-badge-sale-detail">تخفیف ویژه</div>
+                        <div class="dk-price-detail">
+                            <span class="dk-price-old-detail">{{ product.price|intcomma }} تومان</span>
+                            <span>{{ product.sale_price|intcomma }} تومان</span>
+                        </div>
+                    {% else %}
+                        <div class="dk-price-detail">
+                            <span>{{ product.price|intcomma }} تومان</span>
+                        </div>
+                    {% endif %}
+                    <a href="#" class="dk-btn-detail">
+                        <i class="bi bi-cart-plus me-2"></i>
+                        افزودن به سبد خرید
+                    </a>
+                    <a href="{% url 'hello_world' %}" class="dk-back-link">
+                        <i class="bi bi-arrow-right"></i>
+                        بازگشت به صفحه اصلی
+                    </a>
+                    <div class="mt-3 text-end">
+                        <small class="text-muted">آخرین بروزرسانی: ۳ دقیقه پیش</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

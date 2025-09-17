@@ -1,12 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
-   <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">صفحه خروج شما</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">اعتماد شما سرمایه ماست  </p>
+<div class="logout-container">
+    <div class="logout-card">
+        <div class="logout-icon">
+            <i class="bi bi-box-arrow-right"></i>
+        </div>
+        
+        <h1 class="logout-title">خروج از حساب کاربری</h1>
+        <p class="logout-subtitle">آیا مطمئن هستید که می‌خواهید از حساب کاربری خود خارج شوید؟</p>
+        
+        <div class="logout-message">
+            <h4><i class="bi bi-shield-check me-2"></i>اطلاعات شما محفوظ است</h4>
+            <p>تمام اطلاعات و سفارشات شما به صورت امن ذخیره شده و در دسترس شما خواهد بود.</p>
+        </div>
+        
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="bi bi-lock-fill"></i>
                 </div>
+                <div class="feature-text">امنیت بالا</div>
             </div>
-        </header>
-  فرم خروج شما
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </div>
+                <div class="feature-text">دسترسی مجدد</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="bi bi-heart-fill"></i>
+                </div>
+                <div class="feature-text">اعتماد شما</div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{% url 'logout' %}" class="btn-logout">
+                <i class="bi bi-box-arrow-right me-2"></i>
+                بله، خروج کنم
+            </a>
+            <a href="{% url 'index' %}" class="btn-home">
+                <i class="bi bi-house-fill me-2"></i>
+                بازگشت به خانه
+            </a>
+        </div>
+        
+        <div class="mt-4">
+            <small class="text-muted">
+                <i class="bi bi-info-circle me-1"></i>
+                برای ورود مجدد، از دکمه ورود در بالای صفحه استفاده کنید
+            </small>
+        </div>
+    </div>
+</div>
 {% endblock %}

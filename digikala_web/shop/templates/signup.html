@@ -1,20 +1,119 @@
 {% extends 'base.html' %}
 {% block content %}
-   <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">صفحه عضویت</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">در این صحفه شما میتوانید ثبت نام کنید</p>
-                </div>
-            </div>
-        </header>
-<center>
-	<form method="POST" action="{% url 'signup' %}">
-{% csrf_token %}
-	{{ form.as_p }}
-	<br>
-
-	<button type="submit" class="btn btn-primary">ثبت نام</button>
-</form>
-</center>
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    .signup-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+    }
+    .signup-card {
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        padding: 3rem 2.5rem;
+        text-align: center;
+        max-width: 440px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin-top: -60px;
+    }
+    .signup-title {
+        color: #2d3748;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .signup-subtitle {
+        color: #718096;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+    .form-control, .signup-card input, .signup-card select {
+        border-radius: 50px !important;
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 1.2rem;
+        transition: border 0.2s;
+        background: #f7fafc;
+    }
+    .form-control:focus, .signup-card input:focus, .signup-card select:focus {
+        border-color: #667eea;
+        outline: none;
+        box-shadow: 0 0 0 2px #667eea33;
+    }
+    .btn-signup {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        color: white;
+        padding: 12px 40px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    .btn-signup:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        color: white;
+    }
+    .signup-card label {
+        float: right;
+        color: #4a5568;
+        font-weight: 500;
+        margin-bottom: 0.3rem;
+        font-size: 1rem;
+    }
+    .signup-card p {
+        margin-bottom: 1.2rem;
+        text-align: right;
+    }
+    @media (max-width: 600px) {
+        .signup-card {
+            padding: 2rem 1rem;
+            margin: 1rem;
+        }
+        .signup-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+<header class="bg-dark py-5" style="border-radius:0 0 40px 40px;">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">صفحه عضویت</h1>
+            <p class="lead fw-normal text-white-50 mb-0">در این صفحه شما می‌توانید ثبت‌نام کنید</p>
+        </div>
+    </div>
+</header>
+<div class="signup-container">
+    <div class="signup-card">
+        <div class="signup-title">عضویت در فروشگاه</div>
+        <div class="signup-subtitle">لطفاً اطلاعات خود را وارد کنید تا حساب کاربری شما ساخته شود.</div>
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-signup mt-3">ثبت نام</button>
+        </form>
+        <div class="mt-4">
+            <small class="text-muted">
+                قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'login' %}" style="color:#667eea;font-weight:600;">وارد شوید</a>
+            </small>
+        </div>
+    </div>
+</div>
 {% endblock %}

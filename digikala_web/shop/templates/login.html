@@ -1,27 +1,143 @@
 {% extends 'base.html' %}
 {% block content %}
-   <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">ورود به پنل کاربری شما</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">تشگر بابت اعتماد به ما</p>
-                </div>
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    .login-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+    }
+    .login-card {
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        padding: 3rem 2.5rem;
+        text-align: center;
+        max-width: 420px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin-top: -60px;
+    }
+    .login-title {
+        color: #2d3748;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .login-subtitle {
+        color: #718096;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+    .form-control {
+        border-radius: 50px;
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 1.2rem;
+        transition: border 0.2s;
+    }
+    .form-control:focus {
+        border: 1.5px solid #667eea;
+        box-shadow: 0 0 0 2px #667eea22;
+    }
+    .form-check-label {
+        color: #4a5568;
+        font-size: 0.98rem;
+        margin-right: 0.5rem;
+    }
+    .btn-login {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        color: white;
+        padding: 12px 0;
+        border-radius: 50px;
+        font-weight: 600;
+        width: 100%;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.18);
+        margin-top: 0.5rem;
+    }
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.28);
+        color: white;
+    }
+    .login-icon {
+        font-size: 3.2rem;
+        color: #667eea;
+        margin-bottom: 1.2rem;
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1);}
+        50% { transform: scale(1.08);}
+        100% { transform: scale(1);}
+    }
+    .forgot-link {
+        display: block;
+        margin-top: 1rem;
+        color: #667eea;
+        font-size: 0.98rem;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .forgot-link:hover {
+        color: #764ba2;
+        text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+        .login-card {
+            padding: 2rem 1rem;
+        }
+        .login-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<header class="bg-dark py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder" style="font-weight:800;">ورود به پنل کاربری شما</h1>
+            <p class="lead fw-normal text-white-50 mb-0">تشکر بابت اعتماد به ما</p>
+        </div>
+    </div>
+</header>
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-icon">
+            <i class="bi bi-person-circle"></i>
+        </div>
+        <div class="login-title">ورود به حساب کاربری</div>
+        <div class="login-subtitle">لطفاً اطلاعات خود را وارد کنید تا وارد حساب کاربری خود شوید.</div>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="text" class="form-control" name="username" placeholder="ایمیل خود را وارد کنید" required>
+            <input type="password" class="form-control" name="password" placeholder="رمز عبور خود را وارد کنید" required>
+            <div class="mb-3 form-check text-end" style="direction: rtl;">
+                <input type="checkbox" class="form-check-input" id="rememberMe" name="remember">
+                <label class="form-check-label" for="rememberMe">مرا به خاطر بسپار</label>
             </div>
-        </header>
-<form method="POST" action="{% url 'login' %}">
-{% csrf_token %}
-  <div class="mb-3">
-    <input type="text" class="form-control" name="username" placeholder="ایمیل خود را وارد کنید" >
-
-  </div>
-  <div class="mb-3">
-
-    <input type="password" class="form-control" name="password" placeholder="رمز عبور خود را وارد کنید">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+            <button type="submit" class="btn btn-login">
+                <i class="bi bi-box-arrow-in-right me-2"></i>
+                ورود
+            </button>
+            <a href="#" class="forgot-link">رمز عبور خود را فراموش کرده‌اید؟</a>
+        </form>
+    </div>
+</div>
 {% endblock %}
