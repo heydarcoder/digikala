@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Product
+from .models import Product, Category
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -58,4 +58,16 @@ def products(request , pk):
     product = Product.objects.get(id=pk)
     context = {'product': product}
     return render(request,"product.html" , context )
+
+def category(request , ck):
+    ck = ck.replace('-',' ')
+    try:
+        category = Category.objects.get(name=ck)
+        products = Product.objects.filter(category=category)
+        return render(request , 'category.html' , {'products': products, 'category': category})
+    except:
+        return redirect('hello_world')
+        messages.success(request , "دسته بندی شما یافت نشد ")
+    all_products = Product.objects.all()
+
 
