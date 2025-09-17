@@ -53,3 +53,9 @@ def signup_user(request):
         form = SignUpForm()
 
     return render(request, 'signup.html' , {'form' : form})
+
+def products(request , pk):
+    product = Product.objects.get(id=pk)
+    context = {'product': product}
+    return render(request,"product.html" , context )
+
